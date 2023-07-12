@@ -53,5 +53,13 @@ public class GraphImpl {
 
         graph3.applyTopologicalSortUsingBfs();
 
+        int[][] t = new int[][] {{2,1,1},{2,3,1},{3,4,1}};
+
+        int[][] t1 = new int[][] {{1,2,1},{2,3,2},{1,3,2}};
+
+        graph3.networkDelayTime(t,4,2);
+
+        graph3.networkDelayTime(t1,3,1);
+
     }
 }

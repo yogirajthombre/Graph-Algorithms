@@ -1,8 +1,6 @@
 package graphs;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class Graph {
     private int vertices;
@@ -226,5 +224,44 @@ public class Graph {
             if (!visited[x]) return false;
         }
         return true;
+    }
+    public static int networkDelayTime(int[][] times, int n, int k) {
+        PriorityQueue<Pair> queue = new PriorityQueue<Pair>(new Comparator<Pair>() {
+            @Override
+            public int compare(Pair pair, Pair t1) {
+                return pair.wt - t1.wt;
+            }
+        });
+        queue.add(new Pair(k,0));
+        int wt = 0;
+        boolean[] visited = new boolean[n+1];
+        while (!queue.isEmpty()){
+            Pair currentPair = queue.poll();
+            int vertex = currentPair.vertex;
+            if (visited[vertex]) break;
+            wt = currentPair.wt;
+            visited[vertex] = true;
+            for (int[] nodes : times){
+                if (nodes[0] == vertex){
+                    int dest = nodes[1];
+                    int currWt = nodes[2];
+                    if (!visited[dest]){
+                        queue.add(new Pair(dest,wt+currWt));
+                    }
+                }
+            }
+        }
+        for (int x = 0;x<visited.length;x++){
+            if (visited[x]) return -1;
+        }
+        return wt;
+    }
+    public static class Pair {
+        int vertex;
+        int wt;
+        public Pair(int vertex,int wt){
+            this.vertex = vertex;
+            this.wt = wt;
+        }
     }
 }
