@@ -256,6 +256,35 @@ public class Graph {
         }
         return wt;
     }
+
+    public static boolean isNegativeCycle(int[][] edges,int n){
+        int dist[] = new int[n];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[0] = 0;
+
+        for (int count = 1;count < n;count++){
+            for (int edge = 0;edge < edges.length;edge++){
+                int src = edges[edge][0];
+                int dest = edges[edge][1];
+                int wt = edges[edge][2];
+                if (dist[src] != Integer.MAX_VALUE && dist[src]+wt < dist[dest]){
+                    dist[dest] = dist[src]+wt;
+                }
+            }
+        }
+
+        for (int edge = 0;edge < edges.length;edge++){
+            int src = edges[edge][0];
+            int dest = edges[edge][1];
+            int wt = edges[edge][2];
+            if (dist[src] != Integer.MAX_VALUE && dist[src]+wt < dist[dest]){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static class Pair {
         int vertex;
         int wt;
