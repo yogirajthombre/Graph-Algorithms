@@ -59,7 +59,7 @@ public class GraphImpl {
 
         System.out.println("");
 
-        System.out.println("Network Delay Time !!!!!!!!! ---->");
+        System.out.println("Network Delay Time ---->");
 
         graph3.networkDelayTime(t,4,2);
 
@@ -67,9 +67,19 @@ public class GraphImpl {
 
         System.out.println("");
 
+        System.out.println("Is Negative Cycle Present ---->");
+
         boolean isNegativeCyclePresent = graph3.isNegativeCycle(new int[][] {{0,1,3},{0,2,1},{1,2,-10},{3,1,4},{2,3,2}},
                 4);
 
         System.out.println(isNegativeCyclePresent);
+
+        int minimumSpaningTree = graph3.spanningTree(4,new int[][] {{0,1,3},{0,2,1},{1,2,-10},{3,1,4},{2,3,2}});
+
+        System.out.println("");
+
+        System.out.println("Minimum Spanning Tree ---->");
+
+        System.out.println(minimumSpaningTree);
     }
 }

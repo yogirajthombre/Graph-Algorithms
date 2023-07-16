@@ -257,6 +257,10 @@ public class Graph {
         return wt;
     }
 
+    /**
+     *
+     * Bellman Ford Algorithm
+     * **/
     public static boolean isNegativeCycle(int[][] edges,int n){
         int dist[] = new int[n];
         Arrays.fill(dist,Integer.MAX_VALUE);
@@ -285,10 +289,60 @@ public class Graph {
         return false;
     }
 
+    /**
+     *
+     *
+     * Kruskal's Algorithm
+     * **/
+    public static int spanningTree(int n,int[][] graph){
+        int minimumSpanningTree = 0;
+        UnionFind unionFind = new UnionFind(n);
+        PriorityQueue<Pair1> queue = new PriorityQueue<>(new Comparator<Pair1>() {
+            @Override
+            public int compare(Pair1 pair1, Pair1 t1) {
+                return pair1.wt-t1.wt;
+            }
+        });
+
+        for (int i = 0;i<n;i++){
+           int[] gt = graph[i];
+           int u = gt[0];
+           int v = gt[1];
+           int wt = gt[2];
+           Pair1 pair1 = new Pair1(u,v,wt);
+           queue.add(pair1);
+        }
+
+        while (!queue.isEmpty()){
+            Pair1 pair1 = queue.poll();
+            int u = pair1.u;
+            int vertex = pair1.vertex;
+            int x = unionFind.find(u);
+            int y = unionFind.find(vertex);
+            if (x != y){
+                unionFind.adjList[y] = x;
+                minimumSpanningTree += pair1.wt;
+            }
+        }
+
+        return minimumSpanningTree;
+    }
+
     public static class Pair {
         int vertex;
         int wt;
         public Pair(int vertex,int wt){
+            this.vertex = vertex;
+            this.wt = wt;
+        }
+    }
+
+    public static class Pair1 {
+        int u;
+        int vertex;
+        int wt;
+        public Pair1(int u,int vertex,int wt){
+            this.u = u;
             this.vertex = vertex;
             this.wt = wt;
         }
