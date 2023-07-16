@@ -8,3 +8,6 @@ Repository contains implementation of Graph Algorithms such as :
 4. Detect Cycle in Directed Graph
 5. Topological Sort using DFS
 6. Toplogical Sort using BFS (Kahn's Algorithm)
+7. Dijstra's Algorithm
+8. Union Find and Disjoint Sets
+9. Kruskals Algorithm for minimum spanning tree
