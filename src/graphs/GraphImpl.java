@@ -1,5 +1,8 @@
 package graphs;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GraphImpl {
     public static void main(String[] args) {
 
@@ -81,5 +84,35 @@ public class GraphImpl {
         System.out.println("Minimum Spanning Tree ---->");
 
         System.out.println(minimumSpaningTree);
+
+        int n = 4;
+        int[][] arr = new int [][] {{1, 0, 0, 0},
+            {1, 1, 0, 1},
+            {1, 1, 0, 0},
+            {0, 1, 1, 1}};
+
+        graph3.findPath(arr,n);
+
+
+        List<String> list = new ArrayList<String>();
+        list.add("hot");
+        list.add("dot");
+        list.add("dog");
+        list.add("lot");
+        list.add("log");
+        list.add("cog");
+
+        List<String> list1 = new ArrayList<String>();
+        list1.add("hot");
+        list1.add("dot");
+        list1.add("dog");
+        list1.add("lot");
+        list1.add("log");
+
+        int op11 = graph3.ladderLength("hit", "cog", list1);
+        int op12 = graph3.ladderLength("hit", "cog", list);
+
+        System.out.println(op11);
+        System.out.println(op12);
     }
 }

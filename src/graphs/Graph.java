@@ -347,4 +347,116 @@ public class Graph {
             this.wt = wt;
         }
     }
+
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        ArrayList<String> finalPath = new ArrayList<String>();
+        String path = "";
+        boolean[][] visited = new boolean[n][n];
+        helper(m,n,finalPath,0,0,path,visited);
+        return finalPath;
+    }
+
+
+    public static void helper(int[][] m,int n,
+                              ArrayList<String> path,int row,int col,
+                              String currPath,boolean[][] visited){
+
+
+        if ((row == n-1 && col == n-1)){
+            path.add(currPath);
+            return;
+        }else {
+            visited[row][col] = true;
+        }
+
+        if (row+1 < n && m[row+1][col] == 1 && !visited[row+1][col]) {
+            helper(m, n, path, row + 1, col, currPath + "D", visited); /// Down
+        }
+
+        if (row -1 >= 0 && m[row-1][col] == 1 && !visited[row-1][col]) {
+            helper(m, n, path, row - 1, col, currPath + "U",visited);  ///Up
+        }
+
+        if (col+1 < n && m[row][col+1] == 1 && !visited[row][col+1]) {
+            helper(m, n, path, row, col + 1, currPath + "R",visited); /// Right
+        }
+
+        if (col-1 >= 0 && m[row][col-1] == 1 && !visited[row][col-1]) {
+            helper(m, n, path, row, col - 1, currPath + "L",visited); /// Left
+        }
+
+        visited[row][col] = false;
+
+    }
+
+    /***
+     * 
+     * 
+     *  beginWord = "hit", endWord = "cog", wordList = ["hot","dot","dog","lot","log","cog"]
+     * 
+     */
+
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        int length = 0;
+        boolean isAtEnd = false;
+        boolean[] visited = new boolean[wordList.size()];
+        Queue<LevelAndWord> queue = new LinkedList<>();
+        queue.add(new LevelAndWord(0,beginWord));
+        int prevLevel = -1;
+        while (!queue.isEmpty()){
+            LevelAndWord currWord = queue.poll();
+            if (currWord.level>prevLevel){
+                length++;
+                prevLevel = currWord.level;
+            }
+            if (currWord.word.equals(endWord)){
+                isAtEnd = true;
+                break;
+            }
+            for (int x = 0;x<wordList.size();x++){
+                if (!visited[x] && isDifferentiatedByOneLetter(currWord.word,wordList.get(x))){
+                    visited[x] = true;
+                    queue.add(new LevelAndWord(currWord.level+1, wordList.get(x)));
+                }
+            }
+        }
+
+        if (isAtEnd) return length;
+        else return 0;
+    }
+
+    public static boolean isDifferentiatedByOneLetter(String currentWord,String word){
+       char[] currentWordChars = currentWord.toCharArray();
+       char[] wordChars = word.toCharArray();
+       int index = 0;
+       int count = 0;
+       while (index < currentWordChars.length){
+           char c = currentWordChars[index];
+           char w = wordChars[index];
+           if (c == w){
+               index++;
+               continue;
+           }else {
+               index++;
+               count++;
+           }
+       }
+
+       if (count == 1){
+           /// Difference of one letter;
+           return true;
+       }
+       return false;
+    }
+
+    public class LevelAndWord {
+        int level;
+        String word;
+
+        public LevelAndWord(int level, String word) {
+            this.level = level;
+            this.word = word;
+        }
+    }
+
 }
